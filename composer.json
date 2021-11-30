@@ -35,5 +35,5 @@
     "autoload": {
         "psr-4": { "SpApi\\": "lib/" }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }
