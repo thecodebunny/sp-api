@@ -33,6 +33,6 @@
         "friendsofphp/php-cs-fixer": "^2.12"
     },
     "autoload": {
-        "psr-4": { "Thecodebunny\SpApi\\": "lib/" }
+        "psr-4": { "SpApi\\": "lib/" }
     }
 }

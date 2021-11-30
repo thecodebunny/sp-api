@@ -55,7 +55,7 @@ class Configuration
      *
      * @var string
      */
-    protected $userAgent = 'jlevers/selling-partner-api/4.1.9 (Language=PHP)';
+    protected $userAgent = 'thecodebunny/sp-api/4.1.9 (Language=PHP)';
 
     /**
      * Debug switch (default set to false)
