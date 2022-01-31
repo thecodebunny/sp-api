@@ -895,7 +895,7 @@ class ListingsApi
 
         // query params
         if (is_array($included_data)) {
-            $included_data = ObjectSerializer::serializeCollection($included_data, 'form', true);
+            $included_data = ObjectSerializer::serializeCollection($included_data, '', true);
         }
         if ($included_data !== null) {
             $queryParams['includedData'] = $included_data;
@@ -1403,6 +1403,9 @@ class ListingsApi
         );
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
+        echo '<pre>';
+        print_r($httpBody);
+        echo '</pre>';
         return new Request(
             'PATCH',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
