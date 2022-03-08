@@ -119,8 +119,8 @@ class ListingsApi
      * @param  string[] $marketplace_ids A comma-delimited list of Amazon marketplace identifiers for the request. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse
      */
     public function deleteListingsItem($seller_id, $sku, $marketplace_ids, $issue_locale = null)
@@ -137,8 +137,8 @@ class ListingsApi
      * @param  string[] $marketplace_ids A comma-delimited list of Amazon marketplace identifiers for the request. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return array of \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function deleteListingsItemWithHttpInfo($seller_id, $sku, $marketplace_ids, $issue_locale = null)
@@ -153,7 +153,7 @@ class ListingsApi
             try {
                 $response = $this->client->send($signedRequest, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
+                return new ApiException(
                     "[{$e->getCode()}] {$e->getResponse()->getBody()->getContents()}",
                     $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
@@ -164,7 +164,7 @@ class ListingsApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                return new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
@@ -321,7 +321,7 @@ class ListingsApi
                     $e->setResponseObject($data);
                     break;
             }
-            throw $e;
+            return $e;
         }
     }
 
@@ -335,7 +335,7 @@ class ListingsApi
      * @param  string[] $marketplace_ids A comma-delimited list of Amazon marketplace identifiers for the request. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteListingsItemAsync($seller_id, $sku, $marketplace_ids, $issue_locale = null)
@@ -358,7 +358,7 @@ class ListingsApi
      * @param  string[] $marketplace_ids A comma-delimited list of Amazon marketplace identifiers for the request. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteListingsItemAsyncWithHttpInfo($seller_id, $sku, $marketplace_ids, $issue_locale = null)
@@ -385,7 +385,7 @@ class ListingsApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    return new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -407,26 +407,26 @@ class ListingsApi
      * @param  string[] $marketplace_ids A comma-delimited list of Amazon marketplace identifiers for the request. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     public function deleteListingsItemRequest($seller_id, $sku, $marketplace_ids, $issue_locale = null)
     {
         // verify the required parameter 'seller_id' is set
         if ($seller_id === null || (is_array($seller_id) && count($seller_id) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $seller_id when calling deleteListingsItem'
             );
         }
         // verify the required parameter 'sku' is set
         if ($sku === null || (is_array($sku) && count($sku) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $sku when calling deleteListingsItem'
             );
         }
         // verify the required parameter 'marketplace_ids' is set
         if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $marketplace_ids when calling deleteListingsItem'
             );
         }
@@ -538,8 +538,8 @@ class ListingsApi
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      * @param  string[] $included_data A comma-delimited list of data sets to include in the response. Default: summaries. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return \Thecodebunny\SpApi\Model\Listings\Item
      */
     public function getListingsItem($seller_id, $sku, $marketplace_ids, $issue_locale = null, $included_data = null)
@@ -557,8 +557,8 @@ class ListingsApi
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      * @param  string[] $included_data A comma-delimited list of data sets to include in the response. Default: summaries. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return array of \Thecodebunny\SpApi\Model\Listings\Item, HTTP status code, HTTP response headers (array of strings)
      */
     public function getListingsItemWithHttpInfo($seller_id, $sku, $marketplace_ids, $issue_locale = null, $included_data = null)
@@ -573,7 +573,7 @@ class ListingsApi
             try {
                 $response = $this->client->send($signedRequest, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
+                return new ApiException(
                     "[{$e->getCode()}] {$e->getResponse()->getBody()->getContents()}",
                     $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
@@ -584,7 +584,7 @@ class ListingsApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                return new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
@@ -757,7 +757,7 @@ class ListingsApi
                     $e->setResponseObject($data);
                     break;
             }
-            throw $e;
+            return $e;
         }
     }
 
@@ -772,7 +772,7 @@ class ListingsApi
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      * @param  string[] $included_data A comma-delimited list of data sets to include in the response. Default: summaries. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getListingsItemAsync($seller_id, $sku, $marketplace_ids, $issue_locale = null, $included_data = null)
@@ -796,7 +796,7 @@ class ListingsApi
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      * @param  string[] $included_data A comma-delimited list of data sets to include in the response. Default: summaries. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getListingsItemAsyncWithHttpInfo($seller_id, $sku, $marketplace_ids, $issue_locale = null, $included_data = null)
@@ -823,7 +823,7 @@ class ListingsApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    return new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -846,26 +846,26 @@ class ListingsApi
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      * @param  string[] $included_data A comma-delimited list of data sets to include in the response. Default: summaries. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     public function getListingsItemRequest($seller_id, $sku, $marketplace_ids, $issue_locale = null, $included_data = null)
     {
         // verify the required parameter 'seller_id' is set
         if ($seller_id === null || (is_array($seller_id) && count($seller_id) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $seller_id when calling getListingsItem'
             );
         }
         // verify the required parameter 'sku' is set
         if ($sku === null || (is_array($sku) && count($sku) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $sku when calling getListingsItem'
             );
         }
         // verify the required parameter 'marketplace_ids' is set
         if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $marketplace_ids when calling getListingsItem'
             );
         }
@@ -985,8 +985,8 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPatchRequest $body The request body schema for the patchListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse
      */
     public function patchListingsItem($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1004,8 +1004,8 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPatchRequest $body The request body schema for the patchListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return array of \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function patchListingsItemWithHttpInfo($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1020,7 +1020,7 @@ class ListingsApi
             try {
                 $response = $this->client->send($signedRequest, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
+                return new ApiException(
                     "[{$e->getCode()}] {$e->getResponse()->getBody()->getContents()}",
                     $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
@@ -1031,7 +1031,7 @@ class ListingsApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                return new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
@@ -1188,7 +1188,7 @@ class ListingsApi
                     $e->setResponseObject($data);
                     break;
             }
-            throw $e;
+            return $e;
         }
     }
 
@@ -1203,7 +1203,7 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPatchRequest $body The request body schema for the patchListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function patchListingsItemAsync($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1227,7 +1227,7 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPatchRequest $body The request body schema for the patchListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function patchListingsItemAsyncWithHttpInfo($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1254,7 +1254,7 @@ class ListingsApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    return new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1277,32 +1277,32 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPatchRequest $body The request body schema for the patchListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     public function patchListingsItemRequest($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
     {
         // verify the required parameter 'seller_id' is set
         if ($seller_id === null || (is_array($seller_id) && count($seller_id) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $seller_id when calling patchListingsItem'
             );
         }
         // verify the required parameter 'sku' is set
         if ($sku === null || (is_array($sku) && count($sku) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $sku when calling patchListingsItem'
             );
         }
         // verify the required parameter 'marketplace_ids' is set
         if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $marketplace_ids when calling patchListingsItem'
             );
         }
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $body when calling patchListingsItem'
             );
         }
@@ -1403,9 +1403,6 @@ class ListingsApi
         );
 
         $query = \GuzzleHttp\Psr7\Query::build($queryParams);
-        echo '<pre>';
-        print_r($httpBody);
-        echo '</pre>';
         return new Request(
             'PATCH',
             $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''),
@@ -1423,8 +1420,8 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPutRequest $body The request body schema for the putListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse
      */
     public function putListingsItem($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1442,8 +1439,8 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPutRequest $body The request body schema for the putListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \Thecodebunny\SpApi\ApiException on non-2xx response
-     * @throws \InvalidArgumentException
+     * @returns \Thecodebunny\SpApi\ApiException on non-2xx response
+     * @returns \InvalidArgumentException
      * @return array of \Thecodebunny\SpApi\Model\Listings\ListingsItemSubmissionResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function putListingsItemWithHttpInfo($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1458,7 +1455,7 @@ class ListingsApi
             try {
                 $response = $this->client->send($signedRequest, $options);
             } catch (RequestException $e) {
-                throw new ApiException(
+                return new ApiException(
                     "[{$e->getCode()}] {$e->getResponse()->getBody()->getContents()}",
                     $e->getCode(),
                     $e->getResponse() ? $e->getResponse()->getHeaders() : null,
@@ -1469,7 +1466,7 @@ class ListingsApi
             $statusCode = $response->getStatusCode();
 
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(
+                return new ApiException(
                     sprintf(
                         '[%d] Error connecting to the API (%s)',
                         $statusCode,
@@ -1626,7 +1623,7 @@ class ListingsApi
                     $e->setResponseObject($data);
                     break;
             }
-            throw $e;
+            return $e;
         }
     }
 
@@ -1641,7 +1638,7 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPutRequest $body The request body schema for the putListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function putListingsItemAsync($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1665,7 +1662,7 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPutRequest $body The request body schema for the putListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function putListingsItemAsyncWithHttpInfo($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
@@ -1692,7 +1689,7 @@ class ListingsApi
                 function ($exception) {
                     $response = $exception->getResponse();
                     $statusCode = $response->getStatusCode();
-                    throw new ApiException(
+                    return new ApiException(
                         sprintf(
                             '[%d] Error connecting to the API (%s)',
                             $statusCode,
@@ -1715,32 +1712,32 @@ class ListingsApi
      * @param  \Thecodebunny\SpApi\Model\Listings\ListingsItemPutRequest $body The request body schema for the putListingsItem operation. (required)
      * @param  string $issue_locale A locale for localization of issues. When not provided, the default language code of the first marketplace is used. Examples: \&quot;en_US\&quot;, \&quot;fr_CA\&quot;, \&quot;fr_FR\&quot;. Localized messages default to \&quot;en_US\&quot; when a localization is not available in the specified locale. (optional)
      *
-     * @throws \InvalidArgumentException
+     * @returns \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
     public function putListingsItemRequest($seller_id, $sku, $marketplace_ids, $body, $issue_locale = null)
     {
         // verify the required parameter 'seller_id' is set
         if ($seller_id === null || (is_array($seller_id) && count($seller_id) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $seller_id when calling putListingsItem'
             );
         }
         // verify the required parameter 'sku' is set
         if ($sku === null || (is_array($sku) && count($sku) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $sku when calling putListingsItem'
             );
         }
         // verify the required parameter 'marketplace_ids' is set
         if ($marketplace_ids === null || (is_array($marketplace_ids) && count($marketplace_ids) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $marketplace_ids when calling putListingsItem'
             );
         }
         // verify the required parameter 'body' is set
         if ($body === null || (is_array($body) && count($body) === 0)) {
-            throw new \InvalidArgumentException(
+            return new \InvalidArgumentException(
                 'Missing the required parameter $body when calling putListingsItem'
             );
         }
@@ -1852,7 +1849,7 @@ class ListingsApi
     /**
      * Create http client option
      *
-     * @throws \RuntimeException on file opening failure
+     * @returns \RuntimeException on file opening failure
      * @return array of http client options
      */
     protected function createHttpClientOption()
@@ -1861,7 +1858,7 @@ class ListingsApi
         if ($this->config->getDebug()) {
             $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+                return new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }
         }
 
